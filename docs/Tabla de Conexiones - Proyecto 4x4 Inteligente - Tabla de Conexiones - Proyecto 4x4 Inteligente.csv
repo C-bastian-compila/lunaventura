@@ -1,0 +1,76 @@
+Categoría,Componente Origen,Pin / Borne Origen,Componente Destino / Nodo,Pin / Borne Destino,Notas / Función
+Energía,Soporte Baterías 18650 SMT,Positivo (+) general,Fusible RUEF300,Entrada,Protección en serie contra corto masivo
+Energía,Soporte Baterías 18650 SMT,Negativo (-) general,BMS HW-391,B-,Cierre circuito del pack
+Energía,Soporte Baterías 18650 SMT,Unión Central (Serie),BMS HW-391,BM / B1,Balanceo de las 2 celdas
+Energía,Fusible RUEF300,Salida,BMS HW-391,B+,Entrada principal protegida
+Energía,BMS HW-391,P+,Interruptor General,Entrada,Salida positiva (7.4V)
+Energía,Interruptor General,Salida,NODO_VBAT,-,Distribución principal de potencia pesada
+Energía,BMS HW-391,P-,NODO_GND,-,Tierra principal / Referencia común
+Energía,Convertidor Buck MP1584EN,IN+,NODO_VBAT,-,Entrada potencia a reducir
+Energía,Convertidor Buck MP1584EN,IN-,NODO_GND,-,Tierra de entrada
+Energía,Convertidor Buck MP1584EN,OUT+,NODO_5V,-,Salida regulada a 5V exactos
+Energía,Convertidor Buck MP1584EN,OUT-,NODO_GND,-,Tierra de salida
+Filtrado,Capacitor 470 µF (Principal),Pata Larga (+),Convertidor Buck MP1584EN,IN+ (Pin Libre),Estabiliza picos de arranque de motores
+Filtrado,Capacitor 470 µF (Principal),Pata Corta (-),Convertidor Buck MP1584EN,IN- (Pin Libre),Amortiguador de 7.4V
+Filtrado,Capacitor 100 µF (Lógico),Pata Larga (+),NODO_5V,(Cerca ESP32),Filtra ruido para el ESP32 y WiFi
+Filtrado,Capacitor 100 µF (Lógico),Pata Corta (-),NODO_GND,(Cerca ESP32),Amortiguador de 5V
+Control (Cerebro),ESP32 Principal,5V / VIN,NODO_5V,-,Alimentación lógica principal
+Control (Cerebro),ESP32 Principal,GND,NODO_GND,-,Tierra lógica
+Control (Cerebro),ESP32 Principal,3V3,NODO_3V3,-,Generación de línea 3.3V para sensores
+Control (Cerebro),ESP32-CAM,5V,NODO_5V,-,Alimentación cámara
+Control (Cerebro),ESP32-CAM,GND,NODO_GND,-,Tierra cámara
+Control (I2C / PWM),PCA9685,VCC,NODO_5V,-,Alimentación lógica del chip I2C
+Control (I2C / PWM),PCA9685,GND,NODO_GND,-,Tierra PCA9685
+Control (I2C / PWM),PCA9685,V+,NODO_5V,-,Potencia dedicada a servos SG90
+Control (I2C / PWM),PCA9685,SDA,ESP32 Principal,GPIO 21 (BUS_I2C),Datos I2C compartidos
+Control (I2C / PWM),PCA9685,SCL,ESP32 Principal,GPIO 22 (BUS_I2C),Reloj I2C compartido
+Actuadores (Cámara),PCA9685,PWM 0 (Canal 0),Servo SG90 1 (Pan),Cable Señal,Movimiento horizontal de cámara
+Actuadores (Cámara),PCA9685,PWM 1 (Canal 1),Servo SG90 2 (Tilt),Cable Señal,Movimiento vertical de cámara
+Actuadores (Motores),PCA9685,PWM 2 (Canal 2),L298N Frontal,ENA (Pin Señal),Velocidad Eje Frontal Izquierdo
+Actuadores (Motores),PCA9685,PWM 3 (Canal 3),L298N Frontal,ENB (Pin Señal),Velocidad Eje Frontal Derecho
+Actuadores (Motores),PCA9685,PWM 4 (Canal 4),L298N Trasero,ENA (Pin Señal),Velocidad Eje Trasero Izquierdo
+Actuadores (Motores),PCA9685,PWM 5 (Canal 5),L298N Trasero,ENB (Pin Señal),Velocidad Eje Trasero Derecho
+Actuadores (Motores),L298N Frontal,12V (Borne),NODO_VBAT,-,Potencia pesada 7.4V
+Actuadores (Motores),L298N Frontal,GND (Borne),NODO_GND,-,Tierra de potencia
+Actuadores (Motores),L298N Frontal,IN1,ESP32 Principal,GPIO 15,Dirección Frontal Izq (A)
+Actuadores (Motores),L298N Frontal,IN2,ESP32 Principal,GPIO 2,Dirección Frontal Izq (B)
+Actuadores (Motores),L298N Frontal,IN3,ESP32 Principal,GPIO 4,Dirección Frontal Der (A)
+Actuadores (Motores),L298N Frontal,IN4,ESP32 Principal,GPIO 16,Dirección Frontal Der (B)
+Actuadores (Motores),L298N Frontal,OUT1 / OUT2,Motor TT 1 (Frontal Izq),Terminales,Salida a motor
+Actuadores (Motores),L298N Frontal,OUT3 / OUT4,Motor TT 2 (Frontal Der),Terminales,Salida a motor
+Actuadores (Motores),L298N Trasero,12V (Borne),NODO_VBAT,-,Potencia pesada 7.4V
+Actuadores (Motores),L298N Trasero,GND (Borne),NODO_GND,-,Tierra de potencia
+Actuadores (Motores),L298N Trasero,IN1,ESP32 Principal,GPIO 17,Dirección Trasera Izq (A)
+Actuadores (Motores),L298N Trasero,IN2,ESP32 Principal,GPIO 5,Dirección Trasera Izq (B)
+Actuadores (Motores),L298N Trasero,IN3,ESP32 Principal,GPIO 18,Dirección Trasera Der (A)
+Actuadores (Motores),L298N Trasero,IN4,ESP32 Principal,GPIO 19,Dirección Trasera Der (B)
+Actuadores (Motores),L298N Trasero,OUT1 / OUT2,Motor TT 3 (Trasero Izq),Terminales,Salida a motor
+Actuadores (Motores),L298N Trasero,OUT3 / OUT4,Motor TT 4 (Trasero Der),Terminales,Salida a motor
+Sensores,HC-SR04 (Frontal),VCC,NODO_5V,-,Alimentación ultrasonido
+Sensores,HC-SR04 (Frontal),GND,NODO_GND,-,Tierra ultrasonido
+Sensores,HC-SR04 (Frontal),Trig,ESP32 Principal,GPIO 13,Pulso de disparo
+Sensores,HC-SR04 (Frontal),Echo,Resistencia R1 (1kΩ),Extremo A,Divisor: Reduce señal de 5V
+Sensores,Divisor Frontal (R1 y R2),Nodo Central (Unión),ESP32 Principal,GPIO 12,Señal segura a 3.3V
+Sensores,Resistencia R2 (2kΩ) Frontal,Extremo B,NODO_GND,-,Divisor: Cierre a tierra
+Sensores,HC-SR04 (Trasero),VCC,NODO_5V,-,Alimentación ultrasonido
+Sensores,HC-SR04 (Trasero),GND,NODO_GND,-,Tierra ultrasonido
+Sensores,HC-SR04 (Trasero),Trig,ESP32 Principal,GPIO 14,Pulso de disparo
+Sensores,HC-SR04 (Trasero),Echo,Resistencia R1 (1kΩ),Extremo A,Divisor: Reduce señal de 5V
+Sensores,Divisor Trasero (R1 y R2),Nodo Central (Unión),ESP32 Principal,GPIO 27,Señal segura a 3.3V
+Sensores,Resistencia R2 (2kΩ) Trasero,Extremo B,NODO_GND,-,Divisor: Cierre a tierra
+Sensores,SHW-201 (Frontal Izq),VCC,NODO_3V3,-,Alimentación a 3.3V
+Sensores,SHW-201 (Frontal Izq),GND,NODO_GND,-,Tierra
+Sensores,SHW-201 (Frontal Izq),OUT,ESP32 Principal,GPIO 26,Señal IR
+Sensores,SHW-201 (Frontal Der),VCC,NODO_3V3,-,Alimentación a 3.3V
+Sensores,SHW-201 (Frontal Der),GND,NODO_GND,-,Tierra
+Sensores,SHW-201 (Frontal Der),OUT,ESP32 Principal,GPIO 25,Señal IR
+Navegación,MPU-6050,VCC,NODO_3V3,-,Lógica recomendada a 3.3V
+Navegación,MPU-6050,GND,NODO_GND,-,Tierra
+Navegación,MPU-6050,SDA,ESP32 Principal,GPIO 21 (BUS_I2C),Datos giroscopio
+Navegación,MPU-6050,SCL,ESP32 Principal,GPIO 22 (BUS_I2C),Reloj giroscopio
+Interfaz,Pantalla OLED 0.96,VCC,NODO_3V3,-,Alimentación
+Interfaz,Pantalla OLED 0.96,GND,NODO_GND,-,Tierra
+Interfaz,Pantalla OLED 0.96,SDA,ESP32 Principal,GPIO 21 (BUS_I2C),Datos pantalla
+Interfaz,Pantalla OLED 0.96,SCL,ESP32 Principal,GPIO 22 (BUS_I2C),Reloj pantalla
+Interfaz,Pulsador Táctil (12x12mm),Pin 1,ESP32 Principal,GPIO 33,Lectura digital (Usa PULLUP interno)
+Interfaz,Pulsador Táctil (12x12mm),Pin 4 (Diagonal),NODO_GND,-,Cierre de circuito del botón
