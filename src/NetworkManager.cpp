@@ -308,6 +308,27 @@ const char* htmlPage = R"rawliteral(
       </div>
     </div>
 
+    <!-- Controles de Servo -->
+    <div class="slider-container">
+      <div class="slider-header">
+        <span class="slider-label">Servo Pan (Eje X)</span>
+        <span class="slider-value" id="pan-display">300</span>
+      </div>
+      <div class="slider-wrapper">
+        <input type="range" id="pan-slider" min="100" max="500" value="300" oninput="updateServo('pan', this.value)">
+      </div>
+    </div>
+
+    <div class="slider-container" style="margin-top: 10px;">
+      <div class="slider-header">
+        <span class="slider-label">Servo Tilt (Eje Y)</span>
+        <span class="slider-value" id="tilt-display">300</span>
+      </div>
+      <div class="slider-wrapper">
+        <input type="range" id="tilt-slider" min="100" max="500" value="300" oninput="updateServo('tilt', this.value)">
+      </div>
+    </div>
+
     <div class="status-bar">
       <div class="status-left">
         <span class="status-dot"></span>
@@ -349,6 +370,22 @@ const char* htmlPage = R"rawliteral(
       }
     }
 
+    let currentPan = 300;
+    let currentTilt = 300;
+
+    function updateServo(axis, value) {
+      if (axis === 'pan') {
+        currentPan = value;
+        document.getElementById('pan-display').innerText = value;
+      } else if (axis === 'tilt') {
+        currentTilt = value;
+        document.getElementById('tilt-display').innerText = value;
+      }
+
+      fetch('/servo?pan=' + currentPan + '&tilt=' + currentTilt)
+        .catch(err => console.error('Error al enviar servo:', err));
+    }
+
     window.addEventListener('contextmenu', function(e) {
       e.preventDefault();
     });
@@ -377,6 +414,19 @@ void NetworkManager::init(RobotController* controller) {
             }
             if (_controller) {
                 _controller->executeCommand(cmd, speed);
+            }
+            _server.send(200, "text/plain", "OK");
+        } else {
+            _server.send(400, "text/plain", "Bad Request");
+        }
+    });
+
+    _server.on("/servo", [this]() {
+        if (_server.hasArg("pan") && _server.hasArg("tilt")) {
+            int pan = _server.arg("pan").toInt();
+            int tilt = _server.arg("tilt").toInt();
+            if (_controller) {
+                _controller->executeServoCommand(pan, tilt);
             }
             _server.send(200, "text/plain", "OK");
         } else {

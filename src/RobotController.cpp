@@ -27,9 +27,10 @@ void RobotController::init() {
     Wire.setClock(100000); // Restablecer a 100 kHz ya que _pwm.begin() cambia la velocidad a 400 kHz
     Serial.println("PCA9685 inicializado.");
     _pwm.setOscillatorFrequency(27000000);
-    _pwm.setPWMFreq(1000); // 1 kHz para motores DC (ENA/ENB)
+    _pwm.setPWMFreq(50); // 50 Hz para servos SG90. Los motores DC (L298N) lo soportarán pero podrían emitir un ligero zumbido
 
     _motorDriver.init(&_pwm);
+    _servoManager.init(&_pwm);
     _inputHandler.init();
     
     // Inicializar y levantar red AP
@@ -82,6 +83,13 @@ void RobotController::executeCommand(const String& cmd, uint16_t speed) {
         _displayManager.showStatus("DETENIDO");
         Serial.println("CMD: Stop");
     }
+}
+
+void RobotController::executeServoCommand(int panValue, int tiltValue) {
+    if (_currentState != RobotState::MANUAL_CONTROL) return;
+    
+    _servoManager.setPanPulse(panValue);
+    _servoManager.setTiltPulse(tiltValue);
 }
 
 void RobotController::changeState(RobotState newState) {

@@ -30,6 +30,10 @@
 #define PCA_PWM_REAR_ENA  4
 #define PCA_PWM_REAR_ENB  5
 
+// Canales PWM en PCA9685 para Servos (Soporte Cámara)
+#define PCA_PWM_SERVO_PAN 0
+#define PCA_PWM_SERVO_TILT 1
+
 // Interfaz de Usuario
 #define TACTILE_BUTTON_PIN 33
 
@@ -37,7 +41,7 @@
 // CONFIGURACIÓN DE RED (MODO AP)
 // ==========================================
 #define WIFI_AP_SSID     "Lunaventura"
-#define WIFI_AP_PASSWORD "zhenze" // Mínimo 8 caracteres
+#define WIFI_AP_PASSWORD "zhenze19" // Mínimo 8 caracteres
 
 // ==========================================
 // CONFIGURACIÓN DEL SISTEMA
